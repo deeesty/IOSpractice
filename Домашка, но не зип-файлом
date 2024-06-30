@@ -1,0 +1,158 @@
+class Car{
+    let carName: String
+    let countryOfOrigin: String
+    let bodyType: String
+    let quarterMileTime: Double
+    
+    init(carName: String, countryOfOrigin: String, bodyType: String, quarterMileTime: Double) {
+        self.carName = carName
+        self.countryOfOrigin = countryOfOrigin
+        self.bodyType = bodyType
+        self.quarterMileTime = quarterMileTime
+    }
+    
+    func carInfo(){
+        print("Марка автомобиля: " + carName + ". Страна производства: " + countryOfOrigin + ". Тип кузова: " + bodyType + ". Проезжает четверть мили за " + String(quarterMileTime) + " секунд")
+    }
+}
+
+class Lamborghini: Car{
+    let power: Int
+    let cylindersPlacement: String
+    
+    init(carName: String, countryOfOrigin: String, bodyType: String, quarterMileTime: Double, power: Int, cylindersPlacement: String){
+        self.power = power
+        self.cylindersPlacement = cylindersPlacement
+        super.init(carName: carName, countryOfOrigin: countryOfOrigin, bodyType: bodyType, quarterMileTime: quarterMileTime)
+    }
+    
+    override func carInfo() {
+        super.carInfo()
+        print("Мощность двигателя: " + String(power) + " лошадиных сил. " + "Расположение цилиндров: " + cylindersPlacement)
+    }
+}
+
+class Pagani: Car {
+    let price: Int
+    
+    init(carName: String, countryOfOrigin: String, bodyType: String, quarterMileTime: Double, price: Int) {
+        self.price = price
+        super.init(carName: carName, countryOfOrigin: countryOfOrigin, bodyType: bodyType, quarterMileTime: quarterMileTime)
+    }
+    
+    override func carInfo() {
+        super.carInfo()
+        print("Цена: " + String(price) + " долларов")
+    }
+}
+
+class Koenigsegg: Car{
+    let zeroToHundred: Double
+    let powertrain: String
+    
+    init(carName: String, countryOfOrigin: String, bodyType: String, quarterMileTime: Double, zeroToHundred: Double, powertrain: String){
+        self.zeroToHundred = zeroToHundred
+        self.powertrain = powertrain
+        super.init(carName: carName, countryOfOrigin: countryOfOrigin, bodyType: bodyType, quarterMileTime: quarterMileTime)
+    }
+    
+    override func carInfo() {
+        super.carInfo()
+        print("Разгон от 0 до 100 км/ч составляет " + String(zeroToHundred) + " секунды. " + "Тип двигателя: " + powertrain)
+    }
+}
+
+class Bugatti: Car{
+    let maxSpeed: Int
+    
+    init(carName: String, countryOfOrigin: String, bodyType: String, quarterMileTime: Double, maxSpeed: Int) {
+        self.maxSpeed = maxSpeed
+        super.init(carName: carName, countryOfOrigin: countryOfOrigin, bodyType: bodyType, quarterMileTime: quarterMileTime)
+    }
+    
+    override func carInfo() {
+        super.carInfo()
+        print("Максимальная скорость: " + String(maxSpeed))
+    }
+}
+
+var carList: [Car] = []
+func carManufacturing(){
+    let Revuelto = Lamborghini(carName: "Lamborghini Revuelto", countryOfOrigin: "Италия", bodyType: "Двудверное купе", quarterMileTime: 9.7, power: 1001, cylindersPlacement: "V12")
+    carList.append(Revuelto)
+    let Huayra = Pagani(carName: "Pagani Huayra", countryOfOrigin: "Италия", bodyType: "Двудверное купе", quarterMileTime: 10.4, price: 3000000)
+    carList.append(Huayra)
+    let Jesko = Koenigsegg(carName: "Koenigsegg Jesko", countryOfOrigin: "Швеция", bodyType: "Двудверное купе", quarterMileTime: 9.3, zeroToHundred: 2.4, powertrain: "Бензиновый")
+    carList.append(Jesko)
+    let Chiron = Bugatti(carName: "Bugatti Chiron", countryOfOrigin: "Франция", bodyType: "Двудверное купе", quarterMileTime: 9.4, maxSpeed: 460)
+    carList.append(Chiron)
+    
+}
+
+carManufacturing()
+
+func tournament(){
+    //print(carList)
+    var firstIndex = Int.random(in: 0..<4)
+    var secondIndex = Int.random(in: 0..<4)
+    while firstIndex == secondIndex{
+        secondIndex = Int.random(in: 0..<4)
+    }
+    //print(firstIndex, secondIndex)
+    var pairOne: [Car] = []
+    pairOne.append(carList[firstIndex])
+    pairOne.append(carList[secondIndex])
+    //print(pairOne)
+    var pairTwo = Array(carList)
+    if firstIndex > secondIndex{
+        pairTwo.remove(at: firstIndex)
+        pairTwo.remove(at: secondIndex)
+    }
+    else{
+        pairTwo.remove(at: secondIndex)
+        pairTwo.remove(at: firstIndex)
+    }
+    //print(pairTwo)
+    var localWinner1 = pairOne[0]
+    var localWinner2 = pairTwo[0]
+    
+    
+    print("В первом заезде " + pairOne[0].carName + " гоняется с " + pairOne[1].carName)
+    if pairOne[0].quarterMileTime > pairOne[1].quarterMileTime{
+        print("В заезде победил " + pairOne[1].carName + " со временем " + String(pairOne[1].quarterMileTime) + " секунд.")
+        localWinner1 = pairOne[1]
+    }
+    else if pairOne[0].quarterMileTime < pairOne[1].quarterMileTime{
+        print("В заезде победил " + pairOne[0].carName + " со временем " + String(pairOne[0].quarterMileTime) + " секунд.")
+        localWinner1 = pairOne[0]
+    }
+    else {
+        print("Ничья")
+    }
+    
+    print("Во втором заезде " + pairTwo[0].carName + " гоняется с " + pairTwo[1].carName)
+    if pairTwo[0].quarterMileTime > pairTwo[1].quarterMileTime{
+        print("В заезде победил " + pairTwo[1].carName + " со временем " + String(pairTwo[1].quarterMileTime) + " секунд.")
+        localWinner2 = pairTwo[1]
+    }
+    else if pairTwo[0].quarterMileTime < pairTwo[1].quarterMileTime{
+        print("В заезде победил " + pairTwo[0].carName + " со временем " + String(pairTwo[0].quarterMileTime) + " секунд.")
+        localWinner2 = pairTwo[0]
+    }
+    else {
+        print("Ничья")
+    }
+    
+    print("Во втором, финальном заезде " + localWinner1.carName + " гоняется с " + localWinner2.carName)
+    if localWinner1.quarterMileTime < localWinner2.quarterMileTime{
+        print("Победитель турнира: " + localWinner1.carName + " со временем " + String(localWinner1.quarterMileTime) + " секунд.")
+    }
+    else if localWinner1.quarterMileTime > localWinner2.quarterMileTime{
+        print("Победитель турнира: " + localWinner2.carName + " со временем " + String(localWinner2.quarterMileTime) + " секунд.")
+    }
+    else{
+        print("Ничья")
+    }
+}
+
+tournament()
