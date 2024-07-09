@@ -1,9 +1,4 @@
-//
-//  InfoViewController.swift
-//  inbuiltTrainings
-//
 //  Created by Наиль on 08.07.2024.
-//
 
 import UIKit
 
@@ -22,10 +17,10 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title="Тренировка"
         self.infoName.text = nameString
         self.infoText.text = infoTextString
         self.infoImage.image = UIImage(named: infoImageText!)
-        // Do any additional setup after loading the view.
     }
     
     
